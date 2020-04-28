@@ -1,0 +1,31 @@
+app:
+  name: Kafka Consumer
+  code: KAFKACAT 
+  notify: appzdev@cloudbourne.co
+    
+build:
+  version: 5.1
+  env: DEV
+  build_file: none
+  output_files: output/*.zip
+  image_template: kafkacat_consumer-5.1
+  image_name: alpha/kafka_consumer
+    
+deploy:
+  context: alpha/DEV
+  replicas: 1
+  port:
+  - 80
+    
+monitor:
+  notify: appzops@cloudbourne.co      
+    
+properties:
+  KAFKA_BROKER: confluent.appzdemo.com:31110
+  KAFKA_TOPICS: appztest
+  TIME_INTERVAL: 5
+  SECURITY_PROTOCOL: SASL_PLAINTEXT
+  SASL_MECHANISM: PLAIN
+  KAFKA_USER: test
+  KAFKA_PASSWORD: test123
+  revision : 03
